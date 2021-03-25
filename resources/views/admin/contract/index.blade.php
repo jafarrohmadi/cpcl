@@ -39,6 +39,9 @@
                                         &nbsp;Tanggal Berakhir
                                     </th>
                                     <th>
+                                        &nbsp;Jenis Pupuk
+                                    </th>
+                                    <th>
                                         Satuan Kerja
                                     </th>
                                     <th>
@@ -83,14 +86,19 @@
                                         <td>
                                             {{ $contracts->start_date ? date('d-m-Y' , strtotime($contracts->start_date)) : '' }}
                                         </td>
-                                        <td>
+                                        <td @if($contracts->end_date) {{ endDateRed($contracts->end_date) }}@endif>
                                             {{ $contracts->end_date ? date('d-m-Y' , strtotime($contracts->end_date)) : '' }}
                                         </td>
+                                        <th>
+                                            {{ (new \App\Models\Contract)->getFertilizer($contracts->type_of_fertilizer) ?? '' }}
+                                        </th>
                                         <td>
                                             {{ $contracts->work_unit ?? '' }}
                                         </td>
+
                                         <td>
-                                            <a href="{{ url('admin/cpcl/'. $contracts->id) }}">Link ke tabel CPCL</a>
+                                            <a href="{{ url('admin/contract/'.$contracts->id.'/cpcl') }}">Link ke tabel
+                                                CPCL</a>
                                         </td>
                                         <td>
                                             {{ $contracts->item_position ?? '' }}
@@ -102,22 +110,23 @@
                                             {{ $contracts->item_receive ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $contracts->contract_value ?? '' }}
+                                            {{ numberFormat($contracts->contract_value) ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $contracts->tax ?? '' }}
+                                            {{ numberFormat($contracts->tax) ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $contracts->tax ?? '' }}
+                                            {{ numberFormat($contracts->real_value) ?? '' }}
                                         </td>
                                         <td>
                                             Cek list: <br>
 
-                                            @if($contracts->billing_progress)
+                                            @if($contracts->billing_progress != 'null')
                                                 @foreach(json_decode($contracts->billing_progress) as $billing)
-                                                    - {{$billing == 'doku' ? "Verifikasi Dokumen & Bast" : $billing}} <br>
+                                                    - {{$billing == 'doku' ? "Verifikasi Dokumen & Bast" : $billing}}
+                                                    <br>
                                                 @endforeach
-                                                @endif
+                                            @endif
                                         </td>
 
                                         <td>

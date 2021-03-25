@@ -13,7 +13,7 @@ class CPCL extends Model
         'contract_id',
         'province',
         'districts',
-        'sub-district',
+        'sub_district',
         'village',
         'farmers_group_name',
         'chairman_farmers_group_name',
@@ -30,7 +30,7 @@ class CPCL extends Model
         'type_of_land',
         'scan_bast',
         'scan_of_travel_letters',
-        'open_camera_photo ',
+        'open_camera_photo',
         'scan_ktp',
     ];
 }

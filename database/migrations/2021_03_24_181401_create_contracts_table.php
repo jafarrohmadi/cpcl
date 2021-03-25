@@ -26,6 +26,7 @@ class CreateContractsTable extends Migration
             $table->string('tax')->nullable();
             $table->string('real_value')->nullable();
             $table->text('billing_progress')->nullable();
+            $table->text('type_of_fertilizer')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

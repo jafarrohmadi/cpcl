@@ -57,6 +57,24 @@
                                     {{ trans('global.role.fields.title_helper') }}
                                 </p>
                             </div>
+                            <div class="form-group {{ $errors->has('type_of_fertilizer') ? 'has-error' : '' }}">
+                                <label for="type_of_fertilizer">Jenis Pupuk</label>
+                                <select name="type_of_fertilizer" id="type_of_fertilizer" class="form-control">
+                                    <option value="1">Pupuk NPK (Zak)</option>
+                                    <option value="2">Pupuk NPK (Kg)</option>
+                                    <option value="3">Pupuk POP (Kg)</option>
+                                    <option value="4">Pupuk Dolomit (Kg)</option>
+                                    <option value="5">Pupuk PHC (Ltr)</option>
+                                </select>
+                                @if($errors->has('planting_schedule'))
+                                    <p class="help-block">
+                                        {{ $errors->first('planting_schedule') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
                             <div class="form-group {{ $errors->has('work_unit') ? 'has-error' : '' }}">
                                 <label for="work_unit">Satuan Kerja</label>
                                 <input type="text" id="work_unit" name="work_unit" class="form-control"
@@ -152,21 +170,25 @@
                                 <label for="tax">Proses Penagihan</label>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="doku">Verifikasi Dokumen &
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="doku">Verifikasi Dokumen &
                                         Bast</label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPP">SPP</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="SPP">SPP</label>
                                 </div>
 
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPM">SPM</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="SPM">SPM</label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SP2D">SP2D</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="SP2D">SP2D</label>
                                 </div>
 
                                 @if($errors->has('billing_progress'))

@@ -1,0 +1,21 @@
+subdomain :
+reimbursement.ayooproject.com
+
+--------------------------------------------
+database :
+ayooproj_reimbursement		(database)
+
+ayooproj_reimbursement		( User )
+qwert!@#			( Password )
+
+----------------------------------------------
+
+ftp
+ftp.ayooproject.com	: host
+devreimbursement	: user
+
+folder : 
+/home/ayooproject/reimbursement.ayooproject.com/public_html
+
+
+mysql -u username -p

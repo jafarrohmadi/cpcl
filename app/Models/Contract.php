@@ -21,5 +21,19 @@ class Contract extends Model
         'tax',
         'real_value',
         'billing_progress',
+        'type_of_fertilizer',
     ];
+
+    public function getFertilizer($status)
+    {
+        $data = [
+            1 => 'Pupuk NPK (Zak)',
+            2 => 'Pupuk NPK (Kg)',
+            3 => 'Pupuk POP (Kg)',
+            4 => 'Pupuk Dolomit (Kg)',
+            5 => 'Pupuk PHC (Ltr)',
+        ];
+
+        return $data[$status];
+    }
 }

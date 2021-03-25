@@ -58,6 +58,24 @@
                                     {{ trans('global.role.fields.title_helper') }}
                                 </p>
                             </div>
+                            <div class="form-group {{ $errors->has('type_of_fertilizer') ? 'has-error' : '' }}">
+                                <label for="type_of_fertilizer">Jenis Pupuk</label>
+                                <select name="type_of_fertilizer" id="type_of_fertilizer" class="form-control">
+                                    <option value="1" @if($contract->type_of_fertilizer == 1) selected @endif>Pupuk NPK (Zak)</option>
+                                    <option value="2" @if($contract->type_of_fertilizer == 2) selected @endif>Pupuk NPK (Kg)</option>
+                                    <option value="3" @if($contract->type_of_fertilizer == 3) selected @endif>Pupuk POP (Kg)</option>
+                                    <option value="4" @if($contract->type_of_fertilizer == 4) selected @endif>Pupuk Dolomit (Kg)</option>
+                                    <option value="5" @if($contract->type_of_fertilizer == 5) selected @endif>Pupuk PHC (Ltr)</option>
+                                </select>
+                                @if($errors->has('planting_schedule'))
+                                    <p class="help-block">
+                                        {{ $errors->first('planting_schedule') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
                             <div class="form-group {{ $errors->has('work_unit') ? 'has-error' : '' }}">
                                 <label for="work_unit">Satuan Kerja</label>
                                 <input type="text" id="work_unit" name="work_unit" class="form-control"
