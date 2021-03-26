@@ -172,21 +172,21 @@
                                 <div class="form-check">
 
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="doku" @if($contract->billing_progress != null && in_array('doku',json_decode($contract->billing_progress) )) checked @endif>Verifikasi Dokumen &
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="doku" @if($contract->billing_progress != 'null' && in_array('doku',json_decode($contract->billing_progress) )) checked @endif>Verifikasi Dokumen &
                                         Bast</label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPP" @if($contract->billing_progress != null && in_array('SPP',json_decode($contract->billing_progress) )) checked @endif>SPP</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPP" @if($contract->billing_progress != 'null' && in_array('SPP',json_decode($contract->billing_progress) )) checked @endif>SPP</label>
                                 </div>
 
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPM" @if($contract->billing_progress != null && in_array('SPM',json_decode($contract->billing_progress) )) checked @endif>SPM</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPM" @if($contract->billing_progress != 'null' && in_array('SPM',json_decode($contract->billing_progress) )) checked @endif>SPM</label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SP2D" @if($contract->billing_progress != null && in_array('SP2D',json_decode($contract->billing_progress) )) checked @endif>SP2D</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SP2D" @if($contract->billing_progress != 'null' && in_array('SP2D',json_decode($contract->billing_progress) )) checked @endif>SP2D</label>
                                 </div>
 
                                 @if($errors->has('billing_progress'))
