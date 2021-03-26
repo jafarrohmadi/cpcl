@@ -127,7 +127,7 @@
                                     Proses Penagihan
                                 </th>
                                 <td>
-                                    @if($contract->billing_progress)
+                                    @if($contract->billing_progress != null)
                                         @foreach(json_decode($contract->billing_progress) as $billings)
                                             - {{$billings == 'doku'? 'Verifikasi Dokumen & Bast': $billings}}<br>
                                         @endforeach
