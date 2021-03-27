@@ -96,6 +96,7 @@
                             <tr>
                                 <th>
                                     {{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }}
+                                    ({{ $contract->unit_fertilizer }})
                                 </th>
                                 <td>
                                     {{ $cpcl->fertilizer ?? '' }}

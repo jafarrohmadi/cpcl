@@ -29,7 +29,35 @@ class CPCLController extends Controller
 
         $cpcl = CPCL::where('contract_id', $contractId)->get();
 
-        return view('admin.cpcl.index', compact('cpcl', 'contractId', 'contract'));
+        $countCpcl = count($cpcl);
+        $numberRowCpcl = $contract->number_of_row_cpcl;
+
+        $sumPCPL             = $cpcl->sum('fertilizer') ?? 0;
+        $total_kg_fertilizer = $contract->total_kg_fertilizer ?? 0;
+
+        $unitFertilizer = $contract->unit_fertilizer ?? 0;
+
+        if ($unitFertilizer == 'ZAK') {
+            $total_kg_fertilizer = $total_kg_fertilizer / $contract->zak_to_kg;
+        }
+
+        $persentaseCPCL = $kekuranganCPCL = $persentaseCPCLRow = $kekuranganCPCLRow = 0;
+
+        if ($sumPCPL > 0 && $total_kg_fertilizer > 0) {
+            $persentaseCPCL = ($sumPCPL / $total_kg_fertilizer) * 100;
+
+        }
+        
+        $kekuranganCPCL = (($total_kg_fertilizer - $sumPCPL) / $total_kg_fertilizer) * 100;
+
+        if ($countCpcl > 0 && $numberRowCpcl > 0) {
+            $persentaseCPCLRow = ($countCpcl / $numberRowCpcl) * 100;
+
+        }
+
+        $kekuranganCPCLRow = (($numberRowCpcl - $countCpcl) / $numberRowCpcl) * 100;
+
+        return view('admin.cpcl.index', compact('cpcl', 'contractId', 'contract', 'persentaseCPCL', 'kekuranganCPCL', 'persentaseCPCLRow', 'kekuranganCPCLRow'));
     }
 
     /**

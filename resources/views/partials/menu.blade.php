@@ -49,4 +49,11 @@
             </ul>
         </li>
     @endcan
+    <li class="nav-label">Logs</li>
+    <li class="{{ request()->is('admin/activity-logs') ? 'active' : '' }}">
+        <a href="{{url('admin/activity-log')}}" aria-expanded="false">
+            <i class="mdi mdi-google-pages"></i>
+            <span class="nav-text">Activity Logs</span>
+        </a>
+    </li>
 </ul>

@@ -145,7 +145,7 @@
                                 </p>
                             </div>
                             <div class="form-group {{ $errors->has('fertilizer') ? 'has-error' : '' }}">
-                                <label for="fertilizer">{{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }}
+                                <label for="fertilizer">{{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer)  }} ({{ $contract->unit_fertilizer }})
                                 </label>
                                 <input type="number" id="fertilizer" name="fertilizer"
                                        class="form-control"

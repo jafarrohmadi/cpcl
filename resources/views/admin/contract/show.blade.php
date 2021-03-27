@@ -54,6 +54,41 @@
                                     {{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }}
                                 </td>
                             </tr>
+                            <tr>
+                                <th>
+                                    Satuan Pupuk
+                                </th>
+                                <td>
+                                    {{ $contract->unit_fertilizer }}
+                                </td>
+                            </tr>
+                            @if($contract->unit_fertilizer == 'ZAK')
+                                <tr>
+                                    <th>
+                                        KG Ke Zak
+                                    </th>
+                                    <td>
+                                        {{ $contract->zak_to_kg }}
+                                    </td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <th>
+                                    Jumlah Row CPCL
+                                </th>
+                                <td>
+                                    {{ $contract->number_of_row_cpcl }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    Total PUPUK(KG/LITER)
+                                </th>
+                                <td>
+                                    {{ $contract->total_kg_fertilizer }}
+                                </td>
+                            </tr>
 
                             <tr>
                                 <th>

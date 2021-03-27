@@ -2,13 +2,15 @@
 @section('content')
     <div class="container-fluid">
         <div class="row page-titles" style="z-index: 0">
-            @can('permission_create')
-                <div class="col p-0">
-                    <a class="btn btn-success" href="{{ route("admin.cpcl.create" , [$contractId]) }}">
-                        {{ trans('global.add') }} CPCL
-                    </a>
-                </div>
-            @endcan
+            @if(count($cpcl) < $contract->number_of_row_cpcl)
+                @can('permission_create')
+                    <div class="col p-0">
+                        <a class="btn btn-success" href="{{ route("admin.cpcl.create" , [$contractId]) }}">
+                            {{ trans('global.add') }} CPCL
+                        </a>
+                    </div>
+                @endcan
+            @endif
 
             <div class="col p-0">
                 <ol class="breadcrumb">
@@ -17,6 +19,24 @@
                     <li class="breadcrumb-item">CPCL</li>
                     <li class="breadcrumb-item active">List</li>
                 </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Persentase CPCL</h4>
+                        <canvas id="doughutChart" width="500" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Persentase PUPUK</h4>
+                        <canvas id="doughutChart2" width="500" height="250"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -71,6 +91,7 @@
 
                                     <th>
                                         {{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }}
+                                        ({{ $contract->unit_fertilizer }})
                                     </th>
 
                                     <th>
@@ -184,4 +205,65 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{asset('assets/plugins/chartjs/Chart.bundle.js')}}/"></script>
+    <script>
+        var ctx     = document.getElementById('doughutChart')
+        ctx.height  = 150
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: ["{{$persentaseCPCLRow}}", "{{$kekuranganCPCLRow}}"],
+                    backgroundColor: [
+                        'rgba(110,211,207,0.7)',
+                        'rgba(144,104,190,0.07)',
+                    ],
+                    hoverBackgroundColor: [
+                        'rgba(110,211,207,0.7)',
+                        'rgba(144,104,190,0.07)',
+                    ]
+
+                }],
+                labels: [
+                    'Persentase Pengisian CPCL (%)',
+                    'Kekurangan Pengisian CPCL (%)',
+                ]
+            },
+            options: {
+                responsive: true,
+            }
+        })
+
+        var ctx2     = document.getElementById('doughutChart2')
+        ctx2.height  = 150
+        var myChart2 = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: ["{{ $persentaseCPCL }}", "{{ $kekuranganCPCL }}"],
+                    backgroundColor: [
+                        'rgba(110,211,207,0.7)',
+                        'rgba(144,104,190,0.07)',
+                       ,
+                    ],
+                    hoverBackgroundColor: [
+                        'rgba(110,211,207,0.7)',
+                        'rgba(144,104,190,0.07)',
+
+                    ]
+
+                }],
+                labels: [
+                    'Persentase Isian Jumlah Pupuk (%)',
+                    'Kekurangan Isian Jumlah Pupuk (%)',
+                ]
+            },
+            options: {
+                responsive: true,
+            }
+        })
+    </script>
 @endsection

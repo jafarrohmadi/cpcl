@@ -27,6 +27,10 @@ class CreateContractsTable extends Migration
             $table->string('real_value')->nullable();
             $table->text('billing_progress')->nullable();
             $table->text('type_of_fertilizer')->nullable();
+            $table->string('unit_fertilizer')->nullable();
+            $table->string('zak_to_kg')->nullable();
+            $table->string('number_of_row_cpcl')->nullable();
+            $table->string('total_kg_fertilizer')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

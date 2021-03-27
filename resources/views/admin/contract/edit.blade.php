@@ -16,7 +16,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ trans('global.update') }} Contract</h4>
-                        <form action="{{ route("admin.contract.update", [$contract->id]) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route("admin.contract.update", [$contract->id]) }}" method="POST"
+                              enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="form-group {{ $errors->has('contract_number') ? 'has-error' : '' }}">
@@ -34,7 +35,8 @@
                             </div>
                             <div class="form-group {{ $errors->has('start_date') ? 'has-error' : '' }}">
                                 <label for="start_date">Tanggal Dimulai</label>
-                                <input type="text" id="start_date" name="start_date" class="form-control complex-colorpicker"
+                                <input type="text" id="start_date" name="start_date"
+                                       class="form-control complex-colorpicker"
                                        value="{{ old('start_date', $contract->start_date) }}">
                                 @if($errors->has('start_date'))
                                     <p class="help-block">
@@ -47,7 +49,8 @@
                             </div>
                             <div class="form-group {{ $errors->has('end_date') ? 'has-error' : '' }}">
                                 <label for="start_date">Tanggal Berakhir</label>
-                                <input type="text" id="end_date" name="end_date complex-colorpicker" class="form-control"
+                                <input type="text" id="end_date" name="end_date"
+                                       class="form-control complex-colorpicker"
                                        value="{{ old('end_date', $contract->end_date) }}">
                                 @if($errors->has('end_date'))
                                     <p class="help-block">
@@ -60,16 +63,92 @@
                             </div>
                             <div class="form-group {{ $errors->has('type_of_fertilizer') ? 'has-error' : '' }}">
                                 <label for="type_of_fertilizer">Jenis Pupuk</label>
-                                <select name="type_of_fertilizer" id="type_of_fertilizer" class="form-control">
-                                    <option value="1" @if($contract->type_of_fertilizer == 1) selected @endif>Pupuk NPK (Zak)</option>
-                                    <option value="2" @if($contract->type_of_fertilizer == 2) selected @endif>Pupuk NPK (Kg)</option>
-                                    <option value="3" @if($contract->type_of_fertilizer == 3) selected @endif>Pupuk POP (Kg)</option>
-                                    <option value="4" @if($contract->type_of_fertilizer == 4) selected @endif>Pupuk Dolomit (Kg)</option>
-                                    <option value="5" @if($contract->type_of_fertilizer == 5) selected @endif>Pupuk PHC (Ltr)</option>
+                                <select name="type_of_fertilizer" id="type_of_fertilizer" class="form-control"
+                                        onchange="changeTypeFertilizer(this)">
+                                    <option value="1" @if($contract->type_of_fertilizer == "1") selected @endif>Pupuk
+                                        NPK
+                                    </option>
+                                    <option value="2" @if($contract->type_of_fertilizer == "2") selected @endif>Pupuk
+                                        POP
+                                    </option>
+                                    <option value="3" @if($contract->type_of_fertilizer == "3") selected @endif>Pupuk
+                                        Dolomit
+                                    </option>
+                                    <option value="4" @if($contract->type_of_fertilizer == "4") selected @endif>Pupuk
+                                        PHC
+                                    </option>
                                 </select>
-                                @if($errors->has('planting_schedule'))
+                                @if($errors->has('type_of_fertilizer'))
                                     <p class="help-block">
-                                        {{ $errors->first('planting_schedule') }}
+                                        {{ $errors->first('type_of_fertilizer') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+
+                            <div class="form-group {{ $errors->has('unit_fertilizer') ? 'has-error' : '' }}">
+                                <label for="unit_fertilizer">Satuan Pupuk</label>
+                                <select name="unit_fertilizer" id="unit_fertilizer" class="form-control"
+                                        onchange="changeUnitFertilizer(this)">
+                                    @if($contract->type_of_fertilizer == "4")
+                                        <option value="LITER"
+                                                @if($contract->unit_fertilizer == 'LITER') selected @endif>LITER
+                                        </option>
+                                    @else
+                                        <option value="KG" @if($contract->unit_fertilizer == 'KG') selected @endif>KG
+                                        </option>
+                                        <option value="ZAK" @if($contract->unit_fertilizer == 'ZAK') selected @endif>
+                                            ZAK
+                                        </option>
+                                    @endif
+                                </select>
+                                @if($errors->has('unit_fertilizer'))
+                                    <p class="help-block">
+                                        {{ $errors->first('unit_fertilizer') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('zak_to_kg') ? 'has-error' : '' }} zak_to_kg"
+                                 @if($contract->unit_fertilizer != 'ZAK') style="display: none" @endif>
+                                <label for="zak_to_kg">KG Ke Zak</label>
+                                <input name="zak_to_kg" id="zak_to_kg" class="form-control"
+                                       value="{{old('zak_to_kg', $contract->zak_to_kg)}}" type="number">
+                                @if($errors->has('zak_to_kg'))
+                                    <p class="help-block">
+                                        {{ $errors->first('zak_to_kg') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('number_of_row_cpcl') ? 'has-error' : '' }}">
+                                <label for="zak_to_kg">Jumlah Row CPCL</label>
+                                <input name="number_of_row_cpcl" id="number_of_row_cpcl" class="form-control"
+                                       value="{{old('number_of_row_cpcl', $contract->number_of_row_cpcl)}}" min="1" required
+                                       type="number">
+                                @if($errors->has('number_of_row_cpcl'))
+                                    <p class="help-block">
+                                        {{ $errors->first('number_of_row_cpcl') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('total_kg_fertilizer') ? 'has-error' : '' }}">
+                                <label for="total_kg_fertilizer">Total PUPUK(KG/LITER)</label>
+                                <input name="total_kg_fertilizer" id="total_kg_fertilizer" class="form-control"
+                                       type="number"
+                                       value="{{old('total_kg_fertilizer', $contract->total_kg_fertilizer)}}" min="1" required>
+                                @if($errors->has('total_kg_fertilizer'))
+                                    <p class="help-block">
+                                        {{ $errors->first('total_kg_fertilizer') }}
                                     </p>
                                 @endif
                                 <p class="helper-block">
@@ -156,7 +235,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('real_value') ? 'has-error' : '' }}">
                                 <label for="tax">Nilai Real Yang Diterima</label>
-                                <input type="number" id="real_value" name="tax" class="form-control"
+                                <input type="number" id="real_value" name="real_value" class="form-control"
                                        value="{{ old('real_value', $contract->real_value) }}">
                                 @if($errors->has('real_value'))
                                     <p class="help-block">
@@ -172,21 +251,30 @@
                                 <div class="form-check">
 
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="doku" @if($contract->billing_progress != 'null' && in_array('doku',json_decode($contract->billing_progress) )) checked @endif>Verifikasi Dokumen &
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="doku"
+                                               @if($contract->billing_progress != 'null' && in_array('doku',json_decode($contract->billing_progress) )) checked @endif>Verifikasi
+                                        Dokumen &
                                         Bast</label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPP" @if($contract->billing_progress != 'null' && in_array('SPP',json_decode($contract->billing_progress) )) checked @endif>SPP</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="SPP"
+                                               @if($contract->billing_progress != 'null' && in_array('SPP',json_decode($contract->billing_progress) )) checked @endif>SPP</label>
                                 </div>
 
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SPM" @if($contract->billing_progress != 'null' && in_array('SPM',json_decode($contract->billing_progress) )) checked @endif>SPM</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="SPM"
+                                               @if($contract->billing_progress != 'null' && in_array('SPM',json_decode($contract->billing_progress) )) checked @endif>SPM</label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="billing_progress[]" value="SP2D" @if($contract->billing_progress != 'null' && in_array('SP2D',json_decode($contract->billing_progress) )) checked @endif>SP2D</label>
+                                        <input type="checkbox" class="form-check-input" name="billing_progress[]"
+                                               value="SP2D"
+                                               @if($contract->billing_progress != 'null' && in_array('SP2D',json_decode($contract->billing_progress) )) checked @endif>SP2D</label>
                                 </div>
 
                                 @if($errors->has('billing_progress'))
@@ -207,4 +295,26 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        function changeTypeFertilizer (data)
+        {
+            if(data.value == 4) {
+                $('#unit_fertilizer').html('')
+                $('#unit_fertilizer').append('<option value="LITER">LITER</option>')
+            } else {
+                $('#unit_fertilizer').html('<option value="KG">KG</option><option value="ZAK">ZAK</option>')
+            }
+        }
+
+        function changeUnitFertilizer (data)
+        {
+            if(data.value == 'ZAK') {
+                $('.zak_to_kg').show()
+            } else {
+                $('.zak_to_kg').hide()
+            }
+        }
+    </script>
 @endsection

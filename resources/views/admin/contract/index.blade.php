@@ -42,6 +42,15 @@
                                         &nbsp;Jenis Pupuk
                                     </th>
                                     <th>
+                                        &nbsp;Satuan Pupuk
+                                    </th>
+                                    <th>
+                                        &nbsp;Jumlah Row CPCL
+                                    </th>
+                                    <th>
+                                        &nbsp;Total PUPUK(KG/LITER)
+                                    </th>
+                                    <th>
                                         Satuan Kerja
                                     </th>
                                     <th>
@@ -86,18 +95,27 @@
                                         <td>
                                             {{ $contracts->start_date ? date('d-m-Y' , strtotime($contracts->start_date)) : '' }}
                                         </td>
-                                        <td @if($contracts->end_date) {{ endDateRed($contracts->end_date) }}@endif>
+                                        <td @if($contracts->end_date) {{ endDateRed($contracts->end_date) }} @endif>
                                             {{ $contracts->end_date ? date('d-m-Y' , strtotime($contracts->end_date)) : '' }}
                                         </td>
                                         <th>
                                             {{ (new \App\Models\Contract)->getFertilizer($contracts->type_of_fertilizer) ?? '' }}
+                                        </th>
+                                        <th>
+                                            &nbsp;{{ $contracts->type_of_fertilizer ?? '' }}
+                                        </th>
+                                        <th>
+                                            &nbsp;{{ $contracts->number_of_row_cpcl ?? '' }}
+                                        </th>
+                                        <th>
+                                            &nbsp;{{ $contracts->total_kg_fertilizer ?? '' }}
                                         </th>
                                         <td>
                                             {{ $contracts->work_unit ?? '' }}
                                         </td>
 
                                         <td>
-                                            <a href="{{ url('admin/contract/'.$contracts->id.'/cpcl') }}">Link ke tabel
+                                            <a href="{{ url('admin/contract/'.$contracts->id.'/cpcl') }}">view/edit
                                                 CPCL</a>
                                         </td>
                                         <td>
@@ -154,3 +172,4 @@
     </div>
 
 @endsection
+

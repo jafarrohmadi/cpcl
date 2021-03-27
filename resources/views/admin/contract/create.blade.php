@@ -59,16 +59,71 @@
                             </div>
                             <div class="form-group {{ $errors->has('type_of_fertilizer') ? 'has-error' : '' }}">
                                 <label for="type_of_fertilizer">Jenis Pupuk</label>
-                                <select name="type_of_fertilizer" id="type_of_fertilizer" class="form-control">
-                                    <option value="1">Pupuk NPK (Zak)</option>
-                                    <option value="2">Pupuk NPK (Kg)</option>
-                                    <option value="3">Pupuk POP (Kg)</option>
-                                    <option value="4">Pupuk Dolomit (Kg)</option>
-                                    <option value="5">Pupuk PHC (Ltr)</option>
+                                <select name="type_of_fertilizer" id="type_of_fertilizer" class="form-control"
+                                        onchange="changeTypeFertilizer(this)">
+                                    <option value="1">Pupuk NPK</option>
+                                    <option value="2">Pupuk POP</option>
+                                    <option value="3">Pupuk Dolomit</option>
+                                    <option value="4">Pupuk PHC</option>
                                 </select>
                                 @if($errors->has('planting_schedule'))
                                     <p class="help-block">
                                         {{ $errors->first('planting_schedule') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('type_of_fertilizer') ? 'has-error' : '' }}">
+                                <label for="unit_fertilizer">Satuan Pupuk</label>
+                                <select name="unit_fertilizer" id="unit_fertilizer" class="form-control" onchange="changeUnitFertilizer(this)">
+                                    <option value="KG">KG</option>
+                                    <option value="ZAK">ZAK</option>
+                                </select>
+                                @if($errors->has('unit_fertilizer'))
+                                    <p class="help-block">
+                                        {{ $errors->first('unit_fertilizer') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('zak_to_kg') ? 'has-error' : '' }} zak_to_kg"
+                                 style="display: none">
+                                <label for="zak_to_kg">KG Ke Zak</label>
+                                <input name="zak_to_kg" id="zak_to_kg" class="form-control"
+                                       value="{{old('zak_to_kg', '')}}" type="number">
+                                @if($errors->has('zak_to_kg'))
+                                    <p class="help-block">
+                                        {{ $errors->first('zak_to_kg') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('number_of_row_cpcl') ? 'has-error' : '' }}">
+                                <label for="zak_to_kg">Jumlah Row CPCL</label>
+                                <input name="number_of_row_cpcl" id="number_of_row_cpcl" class="form-control"
+                                       value="{{old('number_of_row_cpcl', '')}}" type="number" min="1" required >
+                                @if($errors->has('number_of_row_cpcl'))
+                                    <p class="help-block">
+                                        {{ $errors->first('number_of_row_cpcl') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('total_kg_fertilizer') ? 'has-error' : '' }}">
+                                <label for="total_kg_fertilizer">Total PUPUK(KG/LITER)</label>
+                                <input name="total_kg_fertilizer" id="total_kg_fertilizer" class="form-control" type="number"
+                                       value="{{old('total_kg_fertilizer', '')}}" min="1" required>
+                                @if($errors->has('total_kg_fertilizer'))
+                                    <p class="help-block">
+                                        {{ $errors->first('total_kg_fertilizer') }}
                                     </p>
                                 @endif
                                 <p class="helper-block">
@@ -155,7 +210,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('real_value') ? 'has-error' : '' }}">
                                 <label for="tax">Nilai Real Yang Diterima</label>
-                                <input type="number" id="real_value" name="tax" class="form-control"
+                                <input type="number" id="real_value" name="real_value" class="form-control"
                                        value="{{ old('real_value', '') }}">
                                 @if($errors->has('real_value'))
                                     <p class="help-block">
@@ -209,4 +264,27 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function changeTypeFertilizer (data)
+        {
+            if(data.value == 4) {
+                $('#unit_fertilizer').html('')
+                $('#unit_fertilizer').append('<option value="LITER">LITER</option>')
+            } else {
+                $('#unit_fertilizer').html('<option value="KG">KG</option><option value="ZAK">ZAK</option>')
+            }
+        }
+
+        function changeUnitFertilizer (data)
+        {
+            if(data.value == 'ZAK') {
+                $('.zak_to_kg').show()
+            } else {
+                $('.zak_to_kg').hide()
+            }
+        }
+    </script>
 @endsection

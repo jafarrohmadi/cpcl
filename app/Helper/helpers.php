@@ -60,7 +60,8 @@ if (!function_exists('endDateRed')) {
         $date1 = new DateTime(date('Y-m-d'));
         $date2 = new DateTime($date);
 
-        $diff = $date1->diff($date2)->format("%d");
-        return $diff <= 10 ? "style=background:red" : '';
+        $diff = $date1->diff($date2);
+
+        return $diff->days < 12 && $diff->days > 1 ? "style=background:red" : '';
     }
 }
