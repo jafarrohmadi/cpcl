@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ContractExport;
+use App\Exports\CPCLExport;
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContractController extends Controller
 {
@@ -35,7 +38,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
+        $input                     = $request->all();
         $input['billing_progress'] = json_encode($request->billing_progress);
         Contract::create($input);
 
@@ -82,5 +85,11 @@ class ContractController extends Controller
         $contract->delete();
 
         return back();
+    }
+
+    public function export_excel(Request $request)
+    {
+        return Excel::download(new ContractExport($request->contract_number, $request->start_date, $request->end_date,
+            $request->formatData), 'contract.'.$request->formatData );
     }
 }

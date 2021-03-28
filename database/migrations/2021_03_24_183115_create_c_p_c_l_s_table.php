@@ -25,6 +25,7 @@ class CreateCPCLSTable extends Migration
             $table->string('nik')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('area_ha')->nullable();
+            $table->string('zakorkg')->nullable();
             $table->string('fertilizer')->nullable();
             $table->string('planting_schedule')->nullable();
             $table->string('coordinate_point')->nullable();

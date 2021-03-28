@@ -15,7 +15,7 @@ class RolesController extends Controller
     {
         abort_unless(\Gate::allows('role_access'), 403);
 
-        $roles = Role::all();
+        $roles = Role::where('id', '!=', 1)->where('id', '!=', 2)->get();
 
         return view('admin.roles.index', compact('roles'));
     }
@@ -24,7 +24,7 @@ class RolesController extends Controller
     {
         abort_unless(\Gate::allows('role_create'), 403);
 
-        $permissions = Permission::all()->pluck('title', 'id');
+        $permissions = Permission::all();
 
         return view('admin.roles.create', compact('permissions'));
     }
@@ -43,7 +43,7 @@ class RolesController extends Controller
     {
         abort_unless(\Gate::allows('role_edit'), 403);
 
-        $permissions = Permission::all()->pluck('title', 'id');
+        $permissions = Permission::all();
 
         $role->load('permissions');
 

@@ -28,6 +28,9 @@
                                         Name Log
                                     </th>
                                     <th>
+                                        ID
+                                    </th>
+                                    <th>
                                         Nama User
                                     </th>
                                     <th>
@@ -49,7 +52,10 @@
                                             {{ $logs->description ?? '' }}
                                         </td>
                                         <td>
-                                           {{ $logs->causer->name }}
+                                            ID  : {{ $logs->subject_id  }}
+                                        </td>
+                                        <td>
+                                            {{ $logs->causer->name }}
                                         </td>
                                         <td>
                                             {{ $logs->changes }}

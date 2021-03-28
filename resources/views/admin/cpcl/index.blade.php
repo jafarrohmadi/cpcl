@@ -45,7 +45,7 @@
                     <div class="card-body">
                         <h4 class="card-title row">
                             <div class="col-sm-6">
-                                CPCL {{ trans('global.list') }} From Contract ID {{$contractId}}
+                                CPCL {{ trans('global.list') }} {{$contract->contract_number ?? ''}}
                             </div>
                             <div class="col-sm-6" style="text-align: right;">
                                 <a class="btn btn-success" href="{{ url("admin/contract/$contractId/cpcl/export") }}">
@@ -88,7 +88,13 @@
                                     <th>
                                         Luas (Ha)
                                     </th>
-
+                                    <th>
+                                        @if($contract->unit_fertilizer == 'KG')
+                                            ZAK
+                                        @else
+                                            KG
+                                        @endif
+                                    </th>
                                     <th>
                                         {{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }}
                                         ({{ $contract->unit_fertilizer }})
@@ -154,6 +160,7 @@
                                         <td>
                                             {{ $cpcls->area_ha ?? '' }}
                                         </td>
+                                        <td> {{$cpcls->zakorkg ?? ''}}</td>
                                         <td>
                                             {{ $cpcls->fertilizer ?? '' }}
                                         </td>
@@ -209,9 +216,16 @@
 
 @section('scripts')
     <script src="{{asset('assets/plugins/chartjs/Chart.bundle.js')}}/"></script>
+
     <script>
-        var ctx     = document.getElementById('doughutChart')
-        ctx.height  = 150
+        var mq  = window.matchMedia('(max-width: 570px)')
+        var ctx = document.getElementById('doughutChart')
+        if(mq.matches) {
+            ctx.height = 500
+        } else {
+            ctx.height = 200
+        }
+
         var myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -237,8 +251,13 @@
             }
         })
 
-        var ctx2     = document.getElementById('doughutChart2')
-        ctx2.height  = 150
+        var ctx2 = document.getElementById('doughutChart2')
+        if(mq.matches) {
+            ctx2.height = 500
+        } else {
+            ctx2.height = 200
+        }
+
         var myChart2 = new Chart(ctx2, {
             type: 'doughnut',
             data: {
@@ -247,7 +266,7 @@
                     backgroundColor: [
                         'rgba(110,211,207,0.7)',
                         'rgba(144,104,190,0.07)',
-                       ,
+                        ,
                     ],
                     hoverBackgroundColor: [
                         'rgba(110,211,207,0.7)',

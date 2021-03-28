@@ -31,6 +31,7 @@ class Contract extends Model
         'zak_to_kg',
         'number_of_row_cpcl',
         'total_kg_fertilizer',
+        'status'
     ];
 
     public function getFertilizer($status)

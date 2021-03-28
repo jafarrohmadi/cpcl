@@ -144,8 +144,27 @@
                                     {{ trans('global.role.fields.title_helper') }}
                                 </p>
                             </div>
+                            <div class="form-group {{ $errors->has('zakorkg') ? 'has-error' : '' }}">
+                                @if($contract->unit_fertilizer == 'KG')
+                                    <label for="zakorkg">ZAK</label>
+                                @else
+                                    <label for="zakorkg">KG</label>
+                                @endif
+                                <input type="number" id="zakorkg" name="zakorkg" class="form-control"
+                                       value="{{ old('zakorkg', '') }}">
+                                @if($errors->has('zakorkg'))
+                                    <p class="help-block">
+                                        {{ $errors->first('zakorkg') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('global.role.fields.title_helper') }}
+                                </p>
+                            </div>
                             <div class="form-group {{ $errors->has('fertilizer') ? 'has-error' : '' }}">
-                                <label for="fertilizer">{{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer)  }} ({{ $contract->unit_fertilizer }})
+                                <label
+                                    for="fertilizer">{{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer)  }}
+                                    ({{ $contract->unit_fertilizer }})
                                 </label>
                                 <input type="number" id="fertilizer" name="fertilizer"
                                        class="form-control"

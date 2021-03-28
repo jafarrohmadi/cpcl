@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::resource('contract', 'ContractController');
 
+    Route::post('contract/export', 'ContractController@export_excel');
     Route::get('contract/{contractId}/cpcl/export', 'CPCLController@export_excel');
     Route::resource('contract/{contractId}/cpcl', 'CPCLController');
 

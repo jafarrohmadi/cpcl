@@ -7,7 +7,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Management</a>
                     </li>
-                    <li class="breadcrumb-item "> <a href="{{ url('admin/roles') }}" >Roles</a></li>
+                    <li class="breadcrumb-item "><a href="{{ url('admin/roles') }}">Roles</a></li>
                     <li class="breadcrumb-item active">Create Roles</li>
                 </ol>
             </div>
@@ -34,24 +34,65 @@
                                 </p>
                             </div>
                             <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }}">
-                                <label for="permissions">{{ trans('global.role.fields.permissions') }}*</label>
-                                <select name="permissions[]" id="permissions" class="form-control js-example-basic-select2"
-                                        multiple="multiple">
-                                    @foreach($permissions as $id => $permissions)
-                                        <option
-                                            value="{{ $id }}" {{ (in_array($id, old('permissions', [])) || isset($role) && $role->permissions->contains($id)) ? 'selected' : '' }}>
-                                            {{ $permissions }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('permissions'))
-                                    <p class="help-block">
-                                        {{ $errors->first('permissions') }}
-                                    </p>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('global.role.fields.permissions_helper') }}
-                                </p>
+                                <label for="permissions">{{ trans('global.role.fields.permissions') }} </label>
+                                    <h4> Contract </h4>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Create</td>
+                                            <td>Read</td>
+                                            <td>Update</td>
+                                            <td>Delete</td>
+                                        </tr>
+                                        <?php $permission = array_values($permissions->where('id', '>=',
+                                            19)->where('id', '<=', 78)->toArray());?>
+
+                                        @for($i = 0; $i <= count($permission); $i+=4)
+                                            @if($i < 60)
+                                                <tr>
+                                                    <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i]['id']}}"></td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i + 1]['id']}}"></td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i + 2]['id']}}"></td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i + 3]['id']}}"></td>
+                                                </tr>
+                                            @endif
+                                        @endfor
+
+                                    </table>
+                                    <h4> CPCL </h4>
+                                    <table class="table table-striped table-bordered">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Create</td>
+                                            <td>Read</td>
+                                            <td>Update</td>
+                                            <td>Delete</td>
+                                        </tr>
+                                        <?php $permission = array_values($permissions->where('id', '>=',
+                                            79)->toArray());?>
+
+                                        @for($i = 0; $i <= count($permission); $i+=4)
+                                            @if($i < 65)
+                                                <tr>
+                                                    <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i]['id']}}"></td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i + 1]['id']}}"></td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i + 2]['id']}}"></td>
+                                                    <td><input type="checkbox" name="permissions[]"
+                                                               value="{{$permission[$i + 3]['id']}}"></td>
+                                                </tr>
+                                            @endif
+                                        @endfor
+
+                                    </table>
                             </div>
                             <div>
                                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">

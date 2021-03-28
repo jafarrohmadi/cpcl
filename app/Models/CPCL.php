@@ -32,7 +32,8 @@ class CPCL extends Model
         'scan_of_travel_letters',
         'open_camera_photo',
         'scan_ktp',
-        'fertilizer'
+        'fertilizer',
+        'zakorkg'
     ];
 
 

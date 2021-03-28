@@ -95,6 +95,18 @@
                             </tr>
                             <tr>
                                 <th>
+                                    @if($contract->unit_fertilizer == 'KG')
+                                        ZAK
+                                    @else
+                                        KG
+                                    @endif
+                                </th>
+                                <td>
+                                    {{ $cpcl->zakorkg ?? '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
                                     {{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }}
                                     ({{ $contract->unit_fertilizer }})
                                 </th>

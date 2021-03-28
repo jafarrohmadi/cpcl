@@ -20,6 +20,7 @@
     <!-- Date picker plugins css -->
      <link href="{{ asset('assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet">
     <script src="{{ asset('main/js/modernizr-3.6.0.min.js')}}"></script>
+    <link href="{{ asset('assets/plugins/sweetalert/css/sweetalert.css')}}" rel="stylesheet">
     @yield('styles')
 </head>
 
@@ -132,6 +133,7 @@
 <script src="{{ asset('assets/plugins/moment/moment.js')}}"></script>
 <script src="{{ asset('assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
 
+<script src="{{ asset('assets/plugins/sweetalert/js/sweetalert.min.js')}}"></script>
 @yield('scripts')
 <script>
     // MAterial Date picker

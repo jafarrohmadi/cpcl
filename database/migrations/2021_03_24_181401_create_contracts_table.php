@@ -31,6 +31,7 @@ class CreateContractsTable extends Migration
             $table->string('zak_to_kg')->nullable();
             $table->string('number_of_row_cpcl')->nullable();
             $table->string('total_kg_fertilizer')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
