@@ -6,8 +6,9 @@ use App\Models\Contract;
 use App\Models\CPCL;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class CPCLExport implements FromView
+class CPCLExport implements FromView, ShouldAutoSize
 {
     protected $contractId;
 

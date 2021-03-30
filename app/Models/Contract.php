@@ -16,6 +16,9 @@ class Contract extends Model
 
     protected $fillable = [
         'contract_number',
+        'contract_document',
+        'contract_addendum_number',
+        'contract_addendum_document',
         'start_date',
         'end_date',
         'work_unit',
@@ -31,7 +34,9 @@ class Contract extends Model
         'zak_to_kg',
         'number_of_row_cpcl',
         'total_kg_fertilizer',
-        'status'
+        'status',
+        'billing_document',
+        'tax_pph',
     ];
 
     public function getFertilizer($status)

@@ -7,7 +7,7 @@ if (!function_exists('numberFormat')) {
      */
     function numberFormat($angka)
     {
-        return $angka ? number_format($angka, 0, ',', ',') : 0;
+        return  $angka ? 'Rp. '.number_format($angka, 0, ',', '.') : 'Rp. 0';
     }
 }
 

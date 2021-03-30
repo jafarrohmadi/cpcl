@@ -2,13 +2,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="row page-titles" style="z-index: 0">
-            @can('permission_create')
-                <div class="col p-0">
-                    <a class="btn btn-success" href="{{ route("admin.contract.create") }}">
-                        {{ trans('global.add') }} Contract
-                    </a>
-                </div>
-            @endcan
+            <div class="col p-0">
+                <a class="btn btn-success" href="{{ route("admin.contract.create") }}">
+                    {{ trans('global.add') }} Contract
+                </a>
+            </div>
             <div class="col p-0">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Contract</a>
@@ -23,61 +21,6 @@
                     <div class="card-body">
                         <h4 class="card-title row">
                             <div class="col-sm-6">
-                                Export Contract
-                            </div>
-                        </h4>
-                        <form method="post" action="{{url('admin/contract/export')}} ">
-                            @csrf
-                            <div class="form-group">
-                                <label class="contract-no">No Kontrak</label>
-                                <select name="contract_number[]" class="form-control js-example-basic-select2"
-                                        multiple="multiple" id="contract_number">
-                                    @foreach($contract as $contracts)
-                                        <option value="{{$contracts->id}}">{{$contracts->contract_number}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group {{ $errors->has('start_date') ? 'has-error' : '' }}">
-                                <label for="start_date">Start Date</label>
-                                <input type="text" id="start_date" name="start_date" class="form-control date"
-                                       value="{{ old('start_date', '') }}">
-                                @if($errors->has('start_date'))
-                                    <p class="help-block">
-                                        {{ $errors->first('start_date') }}
-                                    </p>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('global.role.fields.title_helper') }}
-                                </p>
-                            </div>
-                            <div class="form-group {{ $errors->has('end_date') ? 'has-error' : '' }}">
-                                <label for="start_date">End Date</label>
-                                <input type="text" id="end_date" name="end_date" class="form-control date"
-                                       value="{{ old('end_date', '') }}">
-                                @if($errors->has('end_date'))
-                                    <p class="help-block">
-                                        {{ $errors->first('end_date') }}
-                                    </p>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('global.role.fields.title_helper') }}
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Format</label>
-                                <select class="form-control" name="formatData">
-                                    <option value="xlsx">Excel</option>
-                                    <option value="pdf">Pdf</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary exportData">Export Data</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title row">
-                            <div class="col-sm-6">
                                 Contract {{ trans('global.list') }}
                             </div>
                         </h4>
@@ -88,12 +31,29 @@
                                     <th width="10">
                                         No.
                                     </th>
-                                    <th>
-                                        Status
-                                    </th>
                                     @can('contract_number_show')
                                         <th>
                                             Nomor Kontrak
+                                        </th>
+                                    @endcan
+                                    @can('contract_document_show')
+                                        <th>
+                                            Dokumen Kontrak
+                                        </th>
+                                    @endcan
+                                    @can('contract_addendum_number_show')
+                                        <th>
+                                            Nomor Addendum Kontrak
+                                        </th>
+                                    @endcan
+                                    @can('contract_addendum_document_show')
+                                        <th>
+                                            Dokumen Addendum Kontrak
+                                        </th>
+                                    @endcan
+                                    @can('total_kg_fertilizer_show')
+                                        <th>
+                                            Total PUPUK(KG/LITER)
                                         </th>
                                     @endcan
                                     @can('start_date_show')
@@ -137,14 +97,23 @@
                                         </th>
                                     @endcan
                                     @can('tax_show')
-
                                         <th>
-                                            &nbsp;Pajak
+                                            &nbsp;Pajak PPN
+                                        </th>
+                                    @endcan
+                                    @can('tax_pph_show')
+                                        <th>
+                                            &nbsp;Pajak PPH
                                         </th>
                                     @endcan
                                     @can('real_value_show')
                                         <th>
                                             &nbsp;Nilai Real Yang Diterima
+                                        </th>
+                                    @endcan
+                                    @can('billing_document_show')
+                                        <th>
+                                            Dokumen Penagihan
                                         </th>
                                     @endcan
                                     @can('billing_progress_show')
@@ -155,6 +124,9 @@
                                     <th>
                                         User Action
                                     </th>
+                                    <th>
+                                        Status
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -163,20 +135,29 @@
                                         <td>
                                             {{ $key + 1 }}
                                         </td>
-                                        <td>
-                                            @if($contracts->status == 1)
-                                                Finished
-                                            @else
-                                                <button type="submit" class="btn btn-info btn-sm sweet-confirm"
-                                                        data-id="{{$contracts->id}}"
-                                                        data-name="{{ $contracts->contract_number ?? '' }}">Finish
-                                                    Contract
-                                                </button>
-                                            @endif
-                                        </td>
                                         @can('contract_number_show')
                                             <td>
                                                 {{ $contracts->contract_number ?? '' }}
+                                            </td>
+                                        @endcan
+                                        @can('contract_document_show')
+                                            <td>
+                                                {!!  $contracts->contract_document ? getFile($contracts->contract_document) : ''  !!}
+                                            </td>
+                                        @endcan
+                                        @can('contract_addendum_number_show')
+                                            <td>
+                                                {!!  $contracts->contract_addendum_number ?? '' !!}
+                                            </td>
+                                        @endcan
+                                        @can('contract_addendum_document_show')
+                                            <td>
+                                                {!!  $contracts->contract_addendum_document ? getFile($contracts->contract_addendum_document) : ''  !!}
+                                            </td>
+                                        @endcan
+                                        @can('total_kg_fertilizer_show')
+                                            <td>
+                                                {!!  $contracts->total_kg_fertilizer ?? '' !!}
                                             </td>
                                         @endcan
                                         @can('start_date_show')
@@ -195,10 +176,21 @@
                                             </td>
                                         @endcan
                                         @can('cpcl_show')
-                                            <td>
-                                                <a href="{{ url('admin/contract/'.$contracts->id.'/cpcl') }}">view/edit
-                                                    CPCL</a>
-                                            </td>
+                                            @if($contracts->status == 1)
+                                                <td>
+                                                    @can('update_all_data_after_finish_access')
+                                                        <a href="{{ url('admin/contract/'.$contracts->id.'/cpcl') }}">view/edit
+                                                            CPCL</a>
+                                                    @else
+                                                        <a href="#">view/edit CPCL</a>
+                                                    @endcan
+                                                </td>
+                                            @else
+                                                <td>
+                                                    <a href="{{ url('admin/contract/'.$contracts->id.'/cpcl') }}">view/edit
+                                                        CPCL</a>
+                                                </td>
+                                            @endif
                                         @endcan
                                         @can('item_position_show')
                                             <td>
@@ -225,9 +217,19 @@
                                                 {{ numberFormat($contracts->tax) ?? '' }}
                                             </td>
                                         @endcan
+                                        @can('tax_pph_show')
+                                            <td>
+                                                {{ numberFormat($contracts->tax_pph) ?? '' }}
+                                            </td>
+                                        @endcan
                                         @can('real_value_show')
                                             <td>
                                                 {{ numberFormat($contracts->real_value) ?? '' }}
+                                            </td>
+                                        @endcan
+                                        @can('billing_document_show')
+                                            <td>
+                                                {!!  $contracts->billing_document ? getFile($contracts->billing_document) : ''  !!}
                                             </td>
                                         @endcan
                                         @can('billing_progress_show')
@@ -254,11 +256,88 @@
                                             </a>
 
                                         </td>
+
+                                        <td>
+                                            @can('finish_contract_access')
+                                                @if($contracts->status == 1)
+                                                    Finished
+                                                @else
+                                                    <button type="submit" class="btn btn-info btn-sm sweet-confirm"
+                                                            data-id="{{$contracts->id}}"
+                                                            data-name="{{ $contracts->contract_number ?? '' }}">Finish
+                                                        Contract
+                                                    </button>
+                                                @endif
+                                            @else
+                                                @if($contracts->status == 1)
+                                                    Finished
+                                                @else
+                                                    Not Finished
+                                                @endif
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title row">
+                            <div class="col-sm-6">
+                                Export Contract
+                            </div>
+                        </h4>
+                        <form method="post" action="{{url('admin/contract/export')}} ">
+                            @csrf
+                            <div class="form-group">
+                                <label class="contract-no">No Kontrak</label>
+                                <select name="contract_number[]" class="form-control js-example-basic-select2"
+                                        multiple="multiple" id="contract_number">
+                                    @foreach($contract as $contracts)
+                                        <option value="{{$contracts->id}}">{{$contracts->contract_number}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="form-group {{ $errors->has('start_date') ? 'has-error' : '' }} col-sm-6">
+                                    <label for="start_date">Start Date</label>
+                                    <input type="text" id="start_date" name="start_date" class="form-control date"
+                                           value="{{ old('start_date', '') }}">
+                                    @if($errors->has('start_date'))
+                                        <p class="help-block">
+                                            {{ $errors->first('start_date') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.role.fields.title_helper') }}
+                                    </p>
+                                </div>
+                                <div class="form-group {{ $errors->has('end_date') ? 'has-error' : '' }} col-sm-6">
+                                    <label for="start_date">End Date</label>
+                                    <input type="text" id="end_date" name="end_date" class="form-control date"
+                                           value="{{ old('end_date', '') }}">
+                                    @if($errors->has('end_date'))
+                                        <p class="help-block">
+                                            {{ $errors->first('end_date') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('global.role.fields.title_helper') }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Format</label>
+                                <select class="form-control" name="formatData">
+                                    <option value="xlsx">Excel</option>
+                                    <option value="pdf">Pdf</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary exportData">Export Data</button>
+                        </form>
                     </div>
                 </div>
             </div>

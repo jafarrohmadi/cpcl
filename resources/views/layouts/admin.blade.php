@@ -18,7 +18,9 @@
     <link href="{{ asset('assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <link href="{{ asset('main/css/style.css')}}" rel="stylesheet">
     <!-- Date picker plugins css -->
-     <link href="{{ asset('assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet">
+    <link
+        href="{{ asset('assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}"
+        rel="stylesheet">
     <script src="{{ asset('main/js/modernizr-3.6.0.min.js')}}"></script>
     <link href="{{ asset('assets/plugins/sweetalert/css/sweetalert.css')}}" rel="stylesheet">
     @yield('styles')
@@ -93,9 +95,8 @@
     <div class="nk-sidebar">
         <div class="nk-nav-scroll">
             <div class="nav-user">
-                <img src="../../assets/images/users/1.jpg" alt="" class="rounded-circle">
-                <h5>John Doe</h5>
-                <p>UI Developer</p>
+                <img src="https://ui-avatars.com/api/?size=300&name={{\Illuminate\Support\Facades\Auth::user()->name}}&color=3ba90b&background=cdf3bc" alt="" class="rounded-circle">
+                <h5>{{ \Illuminate\Support\Facades\Auth::user()->name }}</h5>
             </div>
             @include('partials.menu')
 
@@ -109,7 +110,8 @@
 
     <div class="footer">
         <div class="copyright">
-            <p>Copyright CPCL &copy;  2021, by <a href="https://kucingcoding.com" target="_blank">kucingcoding.com</a></p>
+            <p>Copyright CPCL &copy; 2021, by <a href="https://kucingcoding.com" target="_blank">kucingcoding.com</a>
+            </p>
         </div>
     </div>
     <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -131,7 +133,8 @@
 
 <!-- Color Picker Plugin JavaScript -->
 <script src="{{ asset('assets/plugins/moment/moment.js')}}"></script>
-<script src="{{ asset('assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+<script
+    src="{{ asset('assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
 
 <script src="{{ asset('assets/plugins/sweetalert/js/sweetalert.min.js')}}"></script>
 @yield('scripts')
@@ -140,11 +143,11 @@
     $('#start_date').bootstrapMaterialDatePicker({
         weekStart: 0,
         time: false
-    });
+    })
     $('#end_date').bootstrapMaterialDatePicker({
         weekStart: 0,
         time: false
-    });
+    })
 </script>
 </body>
 

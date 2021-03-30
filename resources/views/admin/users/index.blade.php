@@ -3,13 +3,12 @@
     <div class="container-fluid">
 
         <div class="row page-titles" style="z-index: 0">
-            @can('user_create')
-                <div class="col p-0">
-                    <a class="btn btn-success" href="{{ route("admin.users.create") }}">
-                        {{ trans('global.add') }} {{ trans('global.user.title_singular') }}
-                    </a>
-                </div>
-            @endcan
+
+            <div class="col p-0">
+                <a class="btn btn-success" href="{{ route("admin.users.create") }}">
+                    {{ trans('global.add') }} {{ trans('global.user.title_singular') }}
+                </a>
+            </div>
             <div class="col p-0">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Management</a>
@@ -65,29 +64,27 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            @can('user_show')
-                                                <a class="btn btn-xs btn-primary"
-                                                   href="{{ route('admin.users.show', $user->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
-                                            @can('user_edit')
-                                                <a class="btn btn-xs btn-info"
-                                                   href="{{ route('admin.users.edit', $user->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
-                                            @can('user_delete')
-                                                <form action="{{ route('admin.users.destroy', $user->id) }}"
-                                                      method="POST"
-                                                      onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
-                                                      style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger"
-                                                           value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
+
+                                            <a class="btn btn-xs btn-primary"
+                                               href="{{ route('admin.users.show', $user->id) }}">
+                                                {{ trans('global.view') }}
+                                            </a>
+
+                                            <a class="btn btn-xs btn-info"
+                                               href="{{ route('admin.users.edit', $user->id) }}">
+                                                {{ trans('global.edit') }}
+                                            </a>
+
+                                            <form action="{{ route('admin.users.destroy', $user->id) }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                                                  style="display: inline-block;">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="submit" class="btn btn-xs btn-danger"
+                                                       value="{{ trans('global.delete') }}">
+                                            </form>
+
                                         </td>
 
                                     </tr>

@@ -35,27 +35,7 @@
                                     {{ trans('global.role.fields.title_helper') }}
                                 </p>
                             </div>
-{{--                            <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }}">--}}
-{{--                                <label for="permissions">{{ trans('global.role.fields.permissions') }}*--}}
-{{--                                </label>--}}
-{{--                                <select name="permissions[]" id="permissions"--}}
-{{--                                        class="form-control  js-example-basic-select2" multiple="multiple">--}}
-{{--                                    @foreach($permissions as $id => $permissions)--}}
-{{--                                        <option--}}
-{{--                                            value="{{ $id }}" {{ (in_array($id, old('permissions', [])) || isset($role) && $role->permissions->contains($id)) ? 'selected' : '' }}>--}}
-{{--                                            {{ $permissions }}--}}
-{{--                                        </option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                                @if($errors->has('permissions'))--}}
-{{--                                    <p class="help-block">--}}
-{{--                                        {{ $errors->first('permissions') }}--}}
-{{--                                    </p>--}}
-{{--                                @endif--}}
-{{--                                <p class="helper-block">--}}
-{{--                                    {{ trans('global.role.fields.permissions_helper') }}--}}
-{{--                                </p>--}}
-{{--                            </div>--}}
+
                             <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }}">
                                 <label for="permissions">{{ trans('global.role.fields.permissions') }} </label>
                                 <h4> Contract </h4>
@@ -63,57 +43,81 @@
                                     <tr>
                                         <td>Name</td>
                                         <td>Create</td>
-                                        <td>Read</td>
                                         <td>Update</td>
-                                        <td>Delete</td>
+                                        <td>Read</td>
                                     </tr>
                                     <?php $permission = array_values($permissions->where('id', '>=',
-                                        19)->where('id', '<=', 78)->toArray());?>
+                                        19)->where('id', '<=', 63)->toArray());?>
 
-                                    @for($i = 0; $i <= count($permission); $i+=4)
-                                        @if($i < 60)
+                                    @for($i = 0; $i <= count($permission); $i+=3)
+                                        @if($i < 44)
                                             <tr>
                                                 <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
                                                 <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i]['id'])) checked @endif></td>
+                                                           value="{{$permission[$i]['id']}}"
+                                                           @if(isset($role) && $role->permissions->contains($permission[$i]['id'])) checked @endif>
+                                                </td>
                                                 <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i + 1]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i + 1]['id'])) checked @endif></td>
+                                                           value="{{$permission[$i + 1]['id']}}"
+                                                           @if(isset($role) && $role->permissions->contains($permission[$i + 1]['id'])) checked @endif>
+                                                </td>
                                                 <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i + 2]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i + 2]['id'])) checked @endif></td>
-                                                <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i + 3]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i + 3]['id'])) checked @endif></td>
+                                                           value="{{$permission[$i + 2]['id']}}"
+                                                           @if(isset($role) && $role->permissions->contains($permission[$i + 2]['id'])) checked @endif>
+                                                </td>
                                             </tr>
                                         @endif
                                     @endfor
 
                                 </table>
                                 <h4> CPCL </h4>
-                                <table class="table table-striped table-bordered">
+                                <table class="table table-bordered">
                                     <tr>
                                         <td>Name</td>
                                         <td>Create</td>
-                                        <td>Read</td>
                                         <td>Update</td>
-                                        <td>Delete</td>
+                                        <td>Read</td>
                                     </tr>
                                     <?php $permission = array_values($permissions->where('id', '>=',
-                                        79)->toArray());?>
+                                        64)->toArray());?>
 
-                                    @for($i = 0; $i <= count($permission); $i+=4)
-                                        @if($i < 65)
+                                    @for($i = 0; $i <= count($permission); $i+=3)
+                                        @if($i < 50)
                                             <tr>
                                                 <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
                                                 <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i]['id'])) checked @endif></td>
+                                                           value="{{$permission[$i]['id']}}"  @if(isset($role) && $role->permissions->contains($permission[$i]['id'])) checked @endif></td>
                                                 <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i + 1]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i + 1]['id'])) checked @endif></td>
+                                                           value="{{$permission[$i + 1]['id']}}"   @if(isset($role) && $role->permissions->contains($permission[$i+ 1]['id'])) checked @endif></td>
                                                 <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i + 2]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i + 2]['id'])) checked @endif></td>
-                                                <td><input type="checkbox" name="permissions[]"
-                                                           value="{{$permission[$i + 3]['id']}}" @if(isset($role) && $role->permissions->contains($permission[$i + 3]['id'])) checked @endif></td>
+                                                           value="{{$permission[$i + 2]['id']}}"                       @if(isset($role) && $role->permissions->contains($permission[$i + 2]['id'])) checked @endif></td>
                                             </tr>
                                         @endif
                                     @endfor
+
+                                </table>
+                                <h4>Tambahan Role </h4>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Finish Contract Access</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="17"                       @if(isset($role) && $role->permissions->contains(17)) checked @endif></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Update All Data After Finish Access</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="18" @if(isset($role) && $role->permissions->contains(18)) checked @endif></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Activity Logs</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="115" @if(isset($role) && $role->permissions->contains(115)) checked @endif></td>
+                                    </tr>
+                                    <tr>
+                                        <td>User Management Access</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="115" @if(isset($role) && $role->permissions->contains(115)) checked @endif></td>
+                                    </tr>
 
                                 </table>
                             </div>

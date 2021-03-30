@@ -13,8 +13,6 @@ class RolesController extends Controller
 {
     public function index()
     {
-        abort_unless(\Gate::allows('role_access'), 403);
-
         $roles = Role::where('id', '!=', 1)->where('id', '!=', 2)->get();
 
         return view('admin.roles.index', compact('roles'));
@@ -22,8 +20,6 @@ class RolesController extends Controller
 
     public function create()
     {
-        abort_unless(\Gate::allows('role_create'), 403);
-
         $permissions = Permission::all();
 
         return view('admin.roles.create', compact('permissions'));
@@ -31,8 +27,6 @@ class RolesController extends Controller
 
     public function store(StoreRoleRequest $request)
     {
-        abort_unless(\Gate::allows('role_create'), 403);
-
         $role = Role::create($request->all());
         $role->permissions()->sync($request->input('permissions', []));
 
@@ -41,7 +35,6 @@ class RolesController extends Controller
 
     public function edit(Role $role)
     {
-        abort_unless(\Gate::allows('role_edit'), 403);
 
         $permissions = Permission::all();
 
@@ -52,7 +45,6 @@ class RolesController extends Controller
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        abort_unless(\Gate::allows('role_edit'), 403);
 
         $role->update($request->all());
         $role->permissions()->sync($request->input('permissions', []));
@@ -62,7 +54,7 @@ class RolesController extends Controller
 
     public function show(Role $role)
     {
-        abort_unless(\Gate::allows('role_show'), 403);
+
 
         $role->load('permissions');
 
@@ -71,7 +63,6 @@ class RolesController extends Controller
 
     public function destroy(Role $role)
     {
-        abort_unless(\Gate::allows('role_delete'), 403);
 
         $role->delete();
 

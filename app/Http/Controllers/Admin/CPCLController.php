@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\CPCLExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CPCLCreateRequest;
 use App\Models\Contract;
 use App\Models\CPCL;
 use Illuminate\Contracts\Foundation\Application;
@@ -47,7 +48,7 @@ class CPCLController extends Controller
             $persentaseCPCL = ($sumPCPL / $total_kg_fertilizer) * 100;
 
         }
-        
+
         $kekuranganCPCL = (($total_kg_fertilizer - $sumPCPL) / $total_kg_fertilizer) * 100;
 
         if ($countCpcl > 0 && $numberRowCpcl > 0) {
@@ -76,24 +77,16 @@ class CPCLController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param CPCLCreateRequest $request
+     * @param $contractId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $contractId)
+    public function store(CPCLCreateRequest $request, $contractId)
     {
         $input = $request->all();
 
         if ($request->hasFile('scan_bast')) {
             $input['scan_bast'] = uploadFile($request->file('scan_bast'));
-        }
-        if ($request->hasFile('scan_of_travel_letters')) {
-            $input['scan_of_travel_letters'] = uploadFile($request->file('scan_of_travel_letters'));
-        }
-        if ($request->hasFile('open_camera_photo')) {
-            $input['open_camera_photo'] = uploadFile($request->file('open_camera_photo'));
-        }
-        if ($request->hasFile('scan_ktp')) {
-            $input['scan_ktp'] = uploadFile($request->file('scan_ktp'));
         }
 
         CPCL::create($input);
@@ -118,26 +111,17 @@ class CPCLController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param CPCLCreateRequest $request
      * @param $contractId
      * @param CPCL $cpcl
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $contractId, CPCL $cpcl)
+    public function update(CPCLCreateRequest $request, $contractId, CPCL $cpcl)
     {
         $input = $request->all();
 
         if ($request->hasFile('scan_bast')) {
             $input['scan_bast'] = uploadFile($request->file('scan_bast'));
-        }
-        if ($request->hasFile('scan_of_travel_letters')) {
-            $input['scan_of_travel_letters'] = uploadFile($request->file('scan_of_travel_letters'));
-        }
-        if ($request->hasFile('open_camera_photo')) {
-            $input['open_camera_photo'] = uploadFile($request->file('open_camera_photo'));
-        }
-        if ($request->hasFile('scan_ktp')) {
-            $input['scan_ktp'] = uploadFile($request->file('scan_ktp'));
         }
 
         $cpcl->update($input);

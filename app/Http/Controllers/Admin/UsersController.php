@@ -13,8 +13,6 @@ class UsersController extends Controller
 {
     public function index()
     {
-        abort_unless(\Gate::allows('user_access'), 403);
-
         $users = User::all();
 
         return view('admin.users.index', compact('users'));
@@ -22,8 +20,6 @@ class UsersController extends Controller
 
     public function create()
     {
-        abort_unless(\Gate::allows('user_create'), 403);
-
         $roles = Role::all()->pluck('title', 'id');
 
         return view('admin.users.create', compact('roles'));
@@ -31,8 +27,6 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        abort_unless(\Gate::allows('user_create'), 403);
-
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
 
@@ -41,8 +35,6 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        abort_unless(\Gate::allows('user_edit'), 403);
-
         $roles = Role::all()->pluck('title', 'id');
 
         $user->load('roles');
@@ -52,8 +44,6 @@ class UsersController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        abort_unless(\Gate::allows('user_edit'), 403);
-
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
 
@@ -62,8 +52,6 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        abort_unless(\Gate::allows('user_show'), 403);
-
         $user->load('roles');
 
         return view('admin.users.show', compact('user'));
@@ -71,8 +59,6 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        abort_unless(\Gate::allows('user_delete'), 403);
-
         $user->delete();
 
         return back();

@@ -14,46 +14,44 @@
                 <i class="mdi mdi-account"></i>
                 <span class="nav-text">Management</span>
             </a>
-
             <ul aria-expanded="false">
-                @can('permission_access')
-                    <li>
-                        <a href="{{ route("admin.permissions.index") }}"
-                           class="{{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
+                )
+                <li>
+                    <a href="{{ route("admin.permissions.index") }}"
+                       class="{{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
 
-                            {{ trans('global.permission.title') }}
+                        {{ trans('global.permission.title') }}
 
-                        </a>
-                    </li>
-                @endcan
-                @can('role_access')
-                    <li>
-                        <a href="{{ route("admin.roles.index") }}"
-                           class="{{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
+                    </a>
+                </li>
 
-                            {{ trans('global.role.title') }}
+                <li>
+                    <a href="{{ route("admin.roles.index") }}"
+                       class="{{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
 
-                        </a>
-                    </li>
-                @endcan
-                @can('user_access')
-                    <li>
-                        <a href="{{ route("admin.users.index") }}"
-                           class="{{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+                        {{ trans('global.role.title') }}
 
-                            {{ trans('global.user.title') }}
+                    </a>
+                </li>
 
-                        </a>
-                    </li>
-                @endcan
+                <li>
+                    <a href="{{ route("admin.users.index") }}"
+                       class="{{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+
+                        {{ trans('global.user.title') }}
+
+                    </a>
+                </li>
             </ul>
         </li>
     @endcan
-    <li class="nav-label">Logs</li>
-    <li class="{{ request()->is('admin/activity-logs') ? 'active' : '' }}">
-        <a href="{{url('admin/activity-log')}}" aria-expanded="false">
-            <i class="mdi mdi-google-pages"></i>
-            <span class="nav-text">Activity Logs</span>
-        </a>
-    </li>
+    @can('activity_logs_show')
+        <li class="nav-label">Logs</li>
+        <li class="{{ request()->is('admin/activity-logs') ? 'active' : '' }}">
+            <a href="{{url('admin/activity-log')}}" aria-expanded="false">
+                <i class="mdi mdi-google-pages"></i>
+                <span class="nav-text">Activity Logs</span>
+            </a>
+        </li>
+    @endcan
 </ul>

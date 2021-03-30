@@ -27,13 +27,7 @@ class CreateCPCLSTable extends Migration
             $table->string('area_ha')->nullable();
             $table->string('zakorkg')->nullable();
             $table->string('fertilizer')->nullable();
-            $table->string('planting_schedule')->nullable();
-            $table->string('coordinate_point')->nullable();
-            $table->string('type_of_land')->nullable();
             $table->string('scan_bast')->nullable();
-            $table->string('scan_of_travel_letters')->nullable();
-            $table->string('open_camera_photo')->nullable();
-            $table->string('scan_ktp')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

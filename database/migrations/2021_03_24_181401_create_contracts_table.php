@@ -16,6 +16,9 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('contract_number')->nullable();
+            $table->string('contract_document')->nullable();
+            $table->string('contract_addendum_number')->nullable();
+            $table->string('contract_addendum_document')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('work_unit')->nullable();
@@ -24,7 +27,9 @@ class CreateContractsTable extends Migration
             $table->string('item_receive')->nullable();
             $table->string('contract_value')->nullable();
             $table->string('tax')->nullable();
+            $table->string('tax_pph')->nullable();
             $table->string('real_value')->nullable();
+            $table->string('billing_document')->nullable();
             $table->text('billing_progress')->nullable();
             $table->text('type_of_fertilizer')->nullable();
             $table->string('unit_fertilizer')->nullable();

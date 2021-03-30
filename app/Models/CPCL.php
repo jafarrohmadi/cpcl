@@ -25,13 +25,7 @@ class CPCL extends Model
         'nik',
         'phone_number',
         'area_ha',
-        'planting_schedule',
-        'coordinate_point',
-        'type_of_land',
         'scan_bast',
-        'scan_of_travel_letters',
-        'open_camera_photo',
-        'scan_ktp',
         'fertilizer',
         'zakorkg'
     ];

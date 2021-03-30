@@ -2,62 +2,74 @@
 <table>
     <thead>
     <tr>
+    <thead>
+    <tr>
         <th width="10">
             No.
         </th>
-        <th>
-            Provinsi
-        </th>
-        <th>
-            Kabupaten
-        </th>
-        <th>
-            Kecamatan
-        </th>
-        <th>
-            Desa
-        </th>
-        <th>
-            Nama Kelompok Tani / Gapoktan
-        </th>
-        <th>
-            Ketua Kelompok Tani / Gapoktan
-        </th>
-        <th>
-            NIK
-        </th>
-        <th>
-            No. HP
-        </th>
-        <th>
-            Luas (Ha)
-        </th>
-
-        <th>
-            {{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }} ({{ $contract->unit_fertilizer }})
-        </th>
-
-        <th>
-            Jadwal Tanam
-        </th>
-        <th>
-            Titik Koordinat
-        </th>
-        <th>
-            Jenis Lahan
-        </th>
-        <th>
-            Scan Bast
-        </th>
-        <th>
-            Scan Surat Jalan
-        </th>
-        <th>
-            Open Camera
-        </th>
-        <th>
-            Scan KTP
-        </th>
+        @can('cpcl_province_show')
+            <th>
+                Provinsi
+            </th>
+        @endcan
+        @can('cpcl_districts_show')
+            <th>
+                Kabupaten
+            </th>
+        @endcan
+        @can('cpcl_sub_district_show')
+            <th>
+                Kecamatan
+            </th>
+        @endcan
+        @can('cpcl_village_show')
+            <th>
+                Desa
+            </th>
+        @endcan
+        @can('cpcl_farmers_group_name_show')
+            <th>
+                Nama Kelompok Tani / Gapoktan
+            </th>
+        @endcan
+        @can('cpcl_chairman_farmers_group_name_show')
+            <th>
+                Ketua Kelompok Tani / Gapoktan
+            </th>
+        @endcan
+        @can('cpcl_nik_show')
+            <th>
+                NIK
+            </th>
+        @endcan
+        @can('cpcl_phone_number_show')
+            <th>
+                No. HP
+            </th>
+        @endcan
+        @can('cpcl_area_ha_show')
+            <th>
+                Luas (Ha)
+            </th>
+        @endcan
+        @can('cpcl_fertilizer_show')
+            <th>
+                @if($contract->unit_fertilizer == 'KG')
+                    ZAK
+                @else
+                    KG
+                @endif
+            </th>
+            <th>
+                {{ (new \App\Models\Contract)->getFertilizer($contract->type_of_fertilizer) }}
+                ({{ $contract->unit_fertilizer }})
+            </th>
+        @endcan
+        @can('cpcl_scan_bast_show')
+            <th>
+                Scan BAST/Surat Jalan/Open Camera/ KTP
+            </th>
+        @endcan
     </tr>
     </thead>
     <tbody>
@@ -66,61 +78,62 @@
             <td>
                 {{ $key + 1 }}
             </td>
-
-            <td>
-                {{ $cpcls->province ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->districts ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->sub_district ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->village ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->farmers_group_name ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->chairman_farmers_group_name ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->nik ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->phone_number ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->area_ha ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->fertilizer ?? '' }}
-            </td>
-
-            <td>
-                {{ $cpcls->planting_schedule ?? '' }}
-            </td>
-            <td>
-                {{ $cpcls->coordinate_point ?? '' }}
-            </td>
-
-            <td>
-                {{ $cpcls->type_of_land ?? '' }}
-            </td>
-            <td>
-                {!!  $cpcls->scan_bast ? getFileLink($cpcls->scan_bast) : ''  !!}
-            </td>
-            <td>
-                {!! $cpcls->scan_of_travel_letters ? getFileLink($cpcls->scan_of_travel_letters): ''  !!}
-            </td>
-            <td>
-                {!! $cpcls->open_camera_photo ? getFileLink($cpcls->open_camera_photo) : ''  !!}
-            </td>
-            <td>
-                {!! $cpcls->scan_ktp ? getFileLink($cpcls->scan_ktp) : ''  !!}
-            </td>
-
+            @can('cpcl_province_show')
+                <td>
+                    {{ $cpcls->province ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_districts_show')
+                <td>
+                    {{ $cpcls->districts ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_sub_district_show')
+                <td>
+                    {{ $cpcls->sub_district ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_village_show')
+                <td>
+                    {{ $cpcls->village ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_farmers_group_name_show')
+                <td>
+                    {{ $cpcls->farmers_group_name ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_chairman_farmers_group_show')
+                <td>
+                    {{ $cpcls->chairman_farmers_group_name ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_nik_show')
+                <td>
+                    {{ $cpcls->nik ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_phone_number_show')
+                <td>
+                    {{ $cpcls->phone_number ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_area_ha_show')
+                <td>
+                    {{ $cpcls->area_ha ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_fertilizer_show')
+                <td> {{$cpcls->zakorkg ?? ''}}</td>
+                <td>
+                    {{ $cpcls->fertilizer ?? '' }}
+                </td>
+            @endcan
+            @can('cpcl_scan_bast_show')
+                <td>
+                    {!!  $cpcls->scan_bast ? getFile($cpcls->scan_bast) : ''  !!}
+                </td>
+            @endcan
         </tr>
     @endforeach
     </tbody>

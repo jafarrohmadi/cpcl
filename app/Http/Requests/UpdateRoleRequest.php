@@ -7,11 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRoleRequest extends FormRequest
 {
-    public function authorize()
-    {
-        return \Gate::allows('role_edit');
-    }
-
     public function rules()
     {
         return [

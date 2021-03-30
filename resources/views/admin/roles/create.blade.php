@@ -35,64 +35,82 @@
                             </div>
                             <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }}">
                                 <label for="permissions">{{ trans('global.role.fields.permissions') }} </label>
-                                    <h4> Contract </h4>
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td>Name</td>
-                                            <td>Create</td>
-                                            <td>Read</td>
-                                            <td>Update</td>
-                                            <td>Delete</td>
-                                        </tr>
-                                        <?php $permission = array_values($permissions->where('id', '>=',
-                                            19)->where('id', '<=', 78)->toArray());?>
+                                <h4> Contract </h4>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Create</td>
+                                        <td>Update</td>
+                                        <td>Read</td>
+                                    </tr>
+                                    <?php $permission = array_values($permissions->where('id', '>=',
+                                        5)->where('id', '<=', 64)->toArray());?>
 
-                                        @for($i = 0; $i <= count($permission); $i+=4)
-                                            @if($i < 60)
-                                                <tr>
-                                                    <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i]['id']}}"></td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i + 1]['id']}}"></td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i + 2]['id']}}"></td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i + 3]['id']}}"></td>
-                                                </tr>
-                                            @endif
-                                        @endfor
+                                    @for($i = 0; $i <= count($permission); $i+=3)
+                                        @if($i < 59)
+                                            <tr>
+                                                <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
+                                                <td><input type="checkbox" name="permissions[]"
+                                                           value="{{$permission[$i]['id']}}"></td>
+                                                <td><input type="checkbox" name="permissions[]"
+                                                           value="{{$permission[$i + 1]['id']}}"></td>
+                                                <td><input type="checkbox" name="permissions[]"
+                                                           value="{{$permission[$i + 2]['id']}}"></td>
+                                            </tr>
+                                        @endif
+                                    @endfor
 
-                                    </table>
-                                    <h4> CPCL </h4>
-                                    <table class="table table-striped table-bordered">
-                                        <tr>
-                                            <td>Name</td>
-                                            <td>Create</td>
-                                            <td>Read</td>
-                                            <td>Update</td>
-                                            <td>Delete</td>
-                                        </tr>
-                                        <?php $permission = array_values($permissions->where('id', '>=',
-                                            79)->toArray());?>
+                                </table>
+                                <h4> CPCL </h4>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Create</td>
+                                        <td>Update</td>
+                                        <td>Read</td>
+                                    </tr>
+                                    <?php $permission = array_values($permissions->where('id', '>=',
+                                        65)->toArray());?>
 
-                                        @for($i = 0; $i <= count($permission); $i+=4)
-                                            @if($i < 65)
-                                                <tr>
-                                                    <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i]['id']}}"></td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i + 1]['id']}}"></td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i + 2]['id']}}"></td>
-                                                    <td><input type="checkbox" name="permissions[]"
-                                                               value="{{$permission[$i + 3]['id']}}"></td>
-                                                </tr>
-                                            @endif
-                                        @endfor
+                                    @for($i = 0; $i <= count($permission); $i+=3)
+                                        @if($i < 32)
+                                            <tr>
+                                                <td> {{str_replace('Create' , '',$permission[$i]['description'])}}</td>
+                                                <td><input type="checkbox" name="permissions[]"
+                                                           value="{{$permission[$i]['id']}}"></td>
+                                                <td><input type="checkbox" name="permissions[]"
+                                                           value="{{$permission[$i + 1]['id']}}"></td>
+                                                <td><input type="checkbox" name="permissions[]"
+                                                           value="{{$permission[$i + 2]['id']}}"></td>
+                                            </tr>
+                                        @endif
+                                    @endfor
 
-                                    </table>
+                                </table>
+                                <h4>Tambahan Role </h4>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Finish Contract Access</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="2"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Update All Data After Finish Access</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Activity Logs</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>User Managemen Access</td>
+                                        <td><input type="checkbox" name="permissions[]"
+                                                   value="1"></td>
+                                    </tr>
+
+                                </table>
                             </div>
                             <div>
                                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
